@@ -123,19 +123,19 @@ public class ABB<T extends Comparable<T>> {
         return "";
     }
 
-    public int cantElementos(){
+    public int cantElementos() {
         return cantElementos(this.raiz);
     }
 
     private int cantElementos(NodoABB<T> nodo) {
-        if (nodo == null){
+        if (nodo == null) {
             return 0;
         }
         return 1 + cantElementos(nodo.getDer()) + cantElementos(nodo.getIzq());
     }
 
-    public void mostrarArbol(){
-         mostrarArbol(raiz, 0);
+    public void mostrarArbol() {
+        mostrarArbol(raiz, 0);
     }
 
     private void mostrarArbol(NodoABB<T> nodo, int nivel) {
@@ -143,17 +143,58 @@ public class ABB<T extends Comparable<T>> {
             return;
         System.out.println(nodo.getDato());
         nivel += 1;
-        if (nodo.getDer() != null){
+        if (nodo.getDer() != null) {
             System.out.println("\\" + " ".repeat(nivel));
             mostrarArbol(nodo.getDer(), nivel);
         }
-        if (nodo.getDer() != null){
+        if (nodo.getDer() != null) {
             System.out.println("/");
             mostrarArbol(nodo.getIzq(), nivel);
         }
 
     }
 
+    public void eliminarNodo(T dato) {
+        eliminarNodo(raiz, dato);
+    }
+
+    private NodoABB<T> eliminarNodo(NodoABB<T> nodo, T dato) {
+        if (nodo == null) {
+            return null;
+        }
+
+        // Buscar el nodo a eliminar en el subárbol izquierdo o derecho
+        if (nodo.getDato().compareTo(dato) > 0) {
+            // Si el dato a eliminar es menor, buscar en el subárbol izquierdo
+            nodo.setIzq(eliminarNodo(nodo.getIzq(), dato));
+        } else if (nodo.getDato().compareTo(dato) < 0) {
+            // Si el dato a eliminar es mayor, buscar en el subárbol derecho
+            nodo.setDer(eliminarNodo(nodo.getDer(), dato));
+        } else {
+            // Si encontramos el nodo a eliminar
+            // Caso 1: Nodo con un solo hijo o sin hijos
+            if (nodo.getIzq() == null) {
+                return nodo.getDer();
+            } else if (nodo.getDer() == null) {
+                return nodo.getIzq();
+            }
+
+            // Caso 2: Nodo con dos hijos
+            // Buscar el sucesor inorden (mínimo del subárbol derecho)
+            NodoABB<T> current = nodo.getDer();
+            while (current.getIzq() != null) {
+                current = current.getIzq();
+            }
+
+            // Reemplazar el valor del nodo con el sucesor
+            nodo.setDato(current.getDato());
+
+            // Eliminar el sucesor inorden
+            nodo.setDer(eliminarNodo(nodo.getDer(), current.getDato()));
+        }
+
+        return nodo;
+    }
 
 
 

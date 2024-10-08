@@ -82,5 +82,24 @@ public class AB<T> {
         // return (nodo.getDato() == x) || pertenece(x, nodo.getIzq()) || pertenece(x, nodo.getDer());
     }
 
+    public int cantNodosConAlturaMayorA(int altura) {
+        return cantNodosConAlturaMayorA(raiz, altura);
+    }
 
+
+
+    private int cantNodosConAlturaMayorA(NodoAB<T> nodo, int altura) {
+        if (nodo == null) {
+            return 0;
+        }
+        int alturaNodo = altura(nodo);
+        if (alturaNodo > altura) {
+            System.out.println("Nodo : " + nodo.getDato());
+            System.out.println("Altura :" + alturaNodo);
+            return 1 + cantNodosConAlturaMayorA(nodo.getDer(), altura) + cantNodosConAlturaMayorA(nodo.getIzq(), altura);
+        } else {
+            return cantNodosConAlturaMayorA(nodo.getDer(), altura) + cantNodosConAlturaMayorA(nodo.getIzq(), altura);
+
+        }
+    }
 }

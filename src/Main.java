@@ -3,6 +3,13 @@ import estructuras.*;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
+
+
+       metodosArbolAB();
+
+    }
+
+    static public void metodosArbolAB(){
         NodoAB<Integer> uno = new NodoAB<>(1);
         NodoAB<Integer> dos = new NodoAB<>(2);
         NodoAB<Integer> tres = new NodoAB<>(3);
@@ -38,20 +45,28 @@ public class Main {
         arbol.imprimirHojas(2);
         System.out.println("Cantidad de Hojas: " + arbol.cantHojas());
         System.out.println("Altura: " + arbol.altura());
+        System.out.println("Deberian de ser todos " + arbol.cantNodos() + " = " + arbol.cantidadDeMultiplos(1));
+        arbol.imprimirElementosMayoresDelNivel(1, 5);
+        System.out.println(arbol.cantNodosConAlturaMayorA(0));
+    }
 
+    static public void metodosArbolABB(){
         // 15, 8, 21, 35, 47, 7, 6, 9
         // 67, 5, 1, 89, 3, 43, 56
         ABBParcial arbolBinario = new ABBParcial();
-        arbolBinario.insertar(15);
-        arbolBinario.insertar(8);
+//        arbolBinario.insertar(5);
+//        arbolBinario.insertar(10);
+//        arbolBinario.insertar(4);
         arbolBinario.insertar(21);
-        arbolBinario.insertar(35);
-        arbolBinario.insertar(47);
-        arbolBinario.insertar(7);
-        arbolBinario.insertar(6);
+        arbolBinario.insertar(9);
+        arbolBinario.insertar(33);
+        arbolBinario.insertar(17);
+        arbolBinario.insertar(8);
+        arbolBinario.insertar(12);
         arbolBinario.insertar(9);
 
-        arbolBinario.mostrarArbol();
+        arbolBinario.eliminarNodo(35);
+
         ListaDoble<Integer> listaInt =  arbolBinario.obtenerListaDecreciente();
         listaInt.mostrar();
         System.out.println("raiz " + arbolBinario.getRaiz().getDato());
